@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         AO3 Work Templates
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/existential-decline/AO3-Work-Templates/
 // @version      2025-05-05
 // @description  Save, load, and delete templates for AO3 new works.
 // @author       existential-decline@tumblr
@@ -217,7 +217,7 @@
         bottom:0;
         right:0;
         height:180px;
-        width:400px;
+        width:40%;
         background:white;
         padding:10px;
         overflow:auto;
@@ -247,6 +247,10 @@
         padding-top:10px;
         padding-right:10px;
         display: inline-block;
+        }
+
+        #templateSelectDiv{
+        width:70%;
         }
 
         #template-button{
@@ -290,11 +294,11 @@
 
     function createModalContent(){
         const templateList = GM_listValues();
-        var modalContentHTML = `<h3>New Work Templates</h3><p>Create new template: <input type="text" id="newtemplatename" value="NewTemplate"></p><label for="templateselect">Choose a template:</label><select name="templateselect" id="templateselect">`;
+        var modalContentHTML = `<h3>New Work Templates</h3><p>Create new template: <input type="text" id="newtemplatename" value="NewTemplate"></p>Choose a template:</label><div id="templateSelectDiv"><select name="templateselect" id="templateselect">`;
         for (let i = 0; i < templateList.length; i++) {
             modalContentHTML += `<option value="` + templateList[i] + `">` + templateList[i] + `</option>`
         };
-        modalContentHTML += `</select>`;
+        modalContentHTML += `</select></div>`;
         $modalContent[0].innerHTML = modalContentHTML;
     };
 
