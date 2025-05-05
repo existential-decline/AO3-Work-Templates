@@ -70,6 +70,7 @@
 
             //save to userscript storage
             GM_setValue(name.name, name);
+            alert("Template " + name.name + " created!");
 
         }
         catch {alert("Something went wrong with saving!")};
@@ -100,52 +101,75 @@
             $("#work_character_autocomplete").val(currtemplate.characters);
             $("#work_freeform_autocomplete").val(currtemplate.additionalTags);
             $("#work_title").val(currtemplate.title);
+
+            $("#co-authors-options-show").prop("checked",currtemplate.hasCoauthors);
             if (currtemplate.hasCoauthors) {
-                $("#co-authors-options-show").prop("checked",currtemplate.hasCoauthors);
                 $("#co-authors-options").removeClass("hidden");
                 $("#pseud_byline_autocomplete").val(currtemplate.coauthors);
-            }
+            } else {
+                $("#co-authors-options").addClass("hidden");
+            };
+
             $("#work_summary").val(currtemplate.summary);
+
+            $("#front-notes-options-show").prop("checked",currtemplate.hasNotesBeginning);
             if (currtemplate.hasNotesBeginning) {
-                $("#front-notes-options-show").prop("checked",currtemplate.hasNotesBeginning);
                 $("#front-notes-options").removeClass("hidden");
                 $("#work_notes").val(currtemplate.notesBeginning);
-            }
+            } else {
+                $("#front-notes-options").addClass("hidden");
+            };
+
+            $("#end-notes-options-show").prop("checked",currtemplate.hasNotesEnd);
             if (currtemplate.hasNotesEnd) {
-                $("#end-notes-options-show").prop("checked",currtemplate.hasNotesEnd);
                 $("#end-notes-options").removeClass("hidden");
                 $("#work_endnotes").val(currtemplate.notesEnd);
-            }
+            } else {
+                $("#end-notes-options").addClass("hidden");
+            };
+
             $("#work_collection_names_autocomplete").val(currtemplate.collections);
             $("#work_recipients_autocomplete").val(currtemplate.giftTo);
+
+            $("#parent-options-show").prop("checked",currtemplate.isInspiredBy);
             if (currtemplate.isInspiredBy) {
-                $("#parent-options-show").prop("checked",currtemplate.isInspiredBy);
                 $("#parent-options").removeClass("hidden");
                 $("#work_parent_work_relationships_attributes_0_url").val(currtemplate.inspiredBy[0]);
                 $("#work_parent_work_relationships_attributes_0_title").val(currtemplate.inspiredBy[1]);
                 $("#work_parent_work_relationships_attributes_0_author").val(currtemplate.inspiredBy[2]);
                 $("#work_parent_work_relationships_attributes_0_language_id").val(currtemplate.inspiredBy[3]);
                 $("#work_parent_work_relationships_attributes_0_translation").prop("checked",currtemplate.inspiredBy[4]);
-            }
+            } else {
+                $("#parent-options").addClass("hidden");
+            };
+
+            $("#series-options-show").prop("checked",currtemplate.isSeries);
             if (currtemplate.isSeries) {
-                $("#series-options-show").prop("checked",currtemplate.isSeries);
                 $("#series-options").removeClass("hidden");
                 $("#work_series_attributes_id").val(currtemplate.series[0]);
                 $("#work_series_attributes_title").val(currtemplate.series[1]);
-            }
+            } else {
+                $("#series-options").addClass("hidden");
+            };
+
+            $("#chapters-options-show").prop("checked",currtemplate.isMultichap);
             if (currtemplate.isMultichap) {
-                $("#chapters-options-show").prop("checked",currtemplate.isMultichap);
                 $("#chapters-options").removeClass("hidden");
                 $("#work_wip_length").val(currtemplate.multichap[0]);
                 $("#work_chapter_attributes_title").val(currtemplate.multichap[1]);
-            }
+            } else {
+                $("#chapters-options").addClass("hidden");
+            };
+
+            $("#backdate-options-show").prop("checked",currtemplate.isPubDate);
             if (currtemplate.isPubDate) {
-                $("#backdate-options-show").prop("checked",currtemplate.isPubDate);
                 $("#backdate-options").removeClass("hidden");
                 $("#work_chapter_attributes_published_at_3i").val(currtemplate.pubDate[0]);
                 $("#work_chapter_attributes_published_at_2i").val(currtemplate.pubDate[1]);
                 $("#work_chapter_attributes_published_at_1i").val(currtemplate.pubDate[2]);
-            }
+            } else {
+                $("#backdate-options").addClass("hidden");
+            };
             $("#work_language_id").val(currtemplate.language);
             $("#work_work_skin_id").val(currtemplate.workSkin);
             $("#work_restricted").prop("checked",currtemplate.regUsers);
@@ -279,7 +303,7 @@
     function deleteTemplate(name) {
 
         GM_deleteValue(name);
-        alert("Template deleted.");
+        alert("Template " + name + " deleted.");
 
         //reload the div box
         createModalContent();
@@ -291,39 +315,8 @@
 
 
 
-    function Template(name, rating, warnings, fandoms, categories, relationships, characters, additionalTags, title, hasCoauthors, coauthors, summary, hasNotesBeginning, notesBeginning, hasNotesEnd, notesEnd, collections, giftTo, isInspiredBy, inspiredBy, isSeries, series, isMultichap, multichap, isPubDate, pubDate, language, workSkin, regUsers, commentMod, whoComments, workText) {
+    function Template(name) {
         this.name = name;
-        this.rating = rating;
-        this.warnings = warnings;
-        this.fandoms = fandoms;
-        this.categories = categories;
-        this.relationships = relationships;
-        this.characters = characters;
-        this.additionalTags = additionalTags;
-        this.title = title;
-        this.hasCoauthors = hasCoauthors;
-        this.coauthors = coauthors;
-        this.summary = summary;
-        this.hasNotesBeginning = hasNotesBeginning;
-        this.notesBeginning = notesBeginning;
-        this.hasNotesEnd = hasNotesEnd;
-        this.notesEnd = notesEnd;
-        this.collections = collections;
-        this.giftTo = giftTo;
-        this.isInspiredBy = isInspiredBy;
-        this.inspiredBy = inspiredBy;
-        this.isSeries = isSeries;
-        this.series = series;
-        this.isMultichap = isMultichap;
-        this.multichap = multichap;
-        this.isPubDate = isPubDate;
-        this.pubDate = pubDate;
-        this.language = language;
-        this.workSkin = workSkin;
-        this.regUsers = regUsers;
-        this.commentMod = commentMod;
-        this.whoComments = whoComments;
-        this.workText = workText;
     }
 
 
