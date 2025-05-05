@@ -217,7 +217,7 @@
         bottom:0;
         right:0;
         height:180px;
-        width:40%;
+        width:250px;
         background:white;
         padding:10px;
         overflow:auto;
