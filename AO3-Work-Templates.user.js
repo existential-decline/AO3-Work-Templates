@@ -6,10 +6,10 @@
 // @author       existential-decline@tumblr
 // @match        https://archiveofourown.org/works/new*
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
-// @grant        GM_setValue
-// @grant        GM_getValue
-// @grant        GM_deleteValue
-// @grant        GM_listValues
+// @grant        GM.setValue
+// @grant        GM.getValue
+// @grant        GM.deleteValue
+// @grant        GM.listValues
 // ==/UserScript==
 /* globals jQuery, $ */
 
@@ -17,7 +17,7 @@
 
 
 
-    function saveTemplate(name) {
+    async function saveTemplate(name) {
         try {
             //collect all the current form data
             name.rating = $("#work_rating_string").val();
@@ -69,7 +69,7 @@
             name.workText = $("#content").val();
 
             //save to userscript storage
-            GM_setValue(name.name, name);
+            await GM.setValue(name.name, name);
             alert("Template " + name.name + " created!");
 
         }
@@ -78,9 +78,14 @@
         createModalContent();
     }
 
-    function loadTemplate(name) {
+    async function loadTemplate(name) {
+
+        //remove current added tags
+        removeTags();
+
         //load from userscript storage
-        const currtemplate = GM_getValue(name,null)
+        const currtemplate = await GM.getValue(name,null);
+
         try {
             //set all the form data
             $("#work_rating_string").val(currtemplate.rating);
@@ -292,8 +297,8 @@
 
     }
 
-    function createModalContent(){
-        const templateList = GM_listValues();
+    async function createModalContent(){
+        const templateList = await GM.listValues();
         var modalContentHTML = `<h3>New Work Templates</h3><p>Create new template: <input type="text" id="newtemplatename" value="NewTemplate"></p>Choose a template:</label><div id="templateSelectDiv"><select name="templateselect" id="templateselect">`;
         for (let i = 0; i < templateList.length; i++) {
             modalContentHTML += `<option value="` + templateList[i] + `">` + templateList[i] + `</option>`
@@ -304,19 +309,20 @@
 
 
 
-    function deleteTemplate(name) {
+    async function deleteTemplate(name) {
 
-        GM_deleteValue(name);
+        await GM.deleteValue(name);
         alert("Template " + name + " deleted.");
 
         //reload the div box
         createModalContent();
     };
 
-
-
-
-
+    function removeTags() {
+        $("li[class='added tag']").each(function (index, element) {
+            $(element).find('a')[0].click();
+        });
+    };
 
 
     function Template(name) {
