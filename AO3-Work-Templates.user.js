@@ -221,13 +221,12 @@
         position:fixed;
         bottom:0;
         right:0;
-        height:180px;
+        height:200px;
         width:250px;
-        background:white;
         padding:10px;
+        background-color:` + colorTheme("background-color") + `;
         overflow:auto;
         border:2px solid grey;
-        color:black;
         z-index:2;
         }
 
@@ -255,15 +254,14 @@
         }
 
         #templateSelectDiv{
-        width:70%;
+        width:80%;
         }
 
         #template-button{
         display:block;
         position:fixed;
-        background:white;
-        color:black;
         border:2px solid grey;
+        background-color:` + colorTheme("background-color") + `;
         bottom:0;
         right:0;
         padding:10px;
@@ -327,7 +325,11 @@
 
     function Template(name) {
         this.name = name;
-    }
+    };
+
+    function colorTheme(elementName) {
+        return ($("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
+    };
 
 
 
