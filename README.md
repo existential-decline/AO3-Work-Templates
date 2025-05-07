@@ -7,7 +7,7 @@ To install, have <a href="https://www.tampermonkey.net">Tampermonkey</a> install
 <ol>
   <li>Complete the <a href="https://archiveofourown.org/works/new">AO3 New Work page</a> with all the information you wish to save to a template.</li>
 <li>Press the 'Create' button and fill in a name for your new template.</li></ol>
-Alternatively,
+Then,
 <ol> 
   <li>Select a saved template in the drop-down.</li>
   <li>Click the 'Load' or 'Delete' button to load or delete it.</li>
