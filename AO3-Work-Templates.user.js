@@ -70,7 +70,7 @@
 
             //save to userscript storage
             await GM.setValue(name.name, name);
-            alert("Template " + name.name + " created!");
+            alert("Template " + name.name + " saved!");
 
         }
         catch {alert("Something went wrong with saving!")};
@@ -196,9 +196,10 @@
     <div id="template-modal">
     <div id="close-template-modal"><span>X</span></div>
     <div id="template-modal-content"></div>
-    <div id="saveTemplateButton"><input type="button" value="Create"></div>
+    <div id="saveTemplateButton"><input type="button" value="Save"></div>
     <div id="loadTemplateButton"><input type="button" value="Load"></div>
     <div id="deleteTemplateButton"><input type="button" value="Delete"></div>
+    <div id="createTemplateButton"><input type="button" value="Create New Template"></div>
     </div>`);
     let $close = $modal.find('#close-template-modal');
     let $modalContent = $modal.find('#template-modal-content');
@@ -206,6 +207,7 @@
     let $deleteTemplateButton = $modal.find('#deleteTemplateButton');
     let $saveTemplateButton = $modal.find('#saveTemplateButton');
     let $loadTemplateButton = $modal.find('#loadTemplateButton');
+    let $createTemplateButton = $modal.find('#createTemplateButton');
 
 
 
@@ -235,26 +237,37 @@
         right:15px;
         }
 
+        #createTemplateButton {
+        display:block;
+        padding-top:20px;
+        align:center;
+        }
+
         #saveTemplateButton{
         padding-top:10px;
         padding-right:10px;
         display: inline-block;
+        align:center;
         }
 
         #loadTemplateButton{
         padding-top:10px;
         padding-right:10px;
         display: inline-block;
+        align:center;
         }
 
         #deleteTemplateButton{
         padding-top:10px;
         padding-right:10px;
         display: inline-block;
+        align:center;
         }
 
         #templateSelectDiv{
-        width:80%;
+        align:center;
+        padding-right:10px;
+        padding-bottom:5px;
         }
 
         #template-button{
@@ -272,6 +285,7 @@
     }
 
     function setupMouseHandlers() {
+        //handle click inputs
         $close.click(function() {
             $modal.hide();
         });
@@ -281,8 +295,12 @@
             $modal.show();
         });
 
+        $createTemplateButton.click(function() {
+            createTemplate();
+        });
+
         $saveTemplateButton.click(function() {
-            saveTemplate(new Template($("#newtemplatename").val()));
+            saveTemplate(new Template($("#templateselect").val()));
         });
 
         $loadTemplateButton.click(function() {
@@ -297,7 +315,8 @@
 
     async function createModalContent(){
         const templateList = await GM.listValues();
-        var modalContentHTML = `<h3>New Work Templates</h3><p>Create new template: <input type="text" id="newtemplatename" value="NewTemplate"></p>Choose a template:</label><div id="templateSelectDiv"><select name="templateselect" id="templateselect">`;
+        var modalContentHTML = `<h3>New Work Templates</h3>
+    <label="templateselection">Choose a template:</label><div id="templateSelectDiv"><select name="templateselect" id="templateselect">`;
         for (let i = 0; i < templateList.length; i++) {
             modalContentHTML += `<option value="` + templateList[i] + `">` + templateList[i] + `</option>`
         };
@@ -306,17 +325,32 @@
     };
 
 
+    function createTemplate() {
+        //creates a js prompt to input a new template name.
+        var templateName = prompt("Please enter new template name:", "NewTemplate");
+        //check if field is blank; if yes, do nothing
+        if (templateName!=null && templateName != "") {
+            //check if a template exists.
+            var templateList = $("#templateselect option").toArray().map(o => o.value);
+            console.log(templateList);
+            if (!(templateList.includes(templateName))) {
+                saveTemplate(new Template(templateName));
+            } else {
+                alert(templateName + " already exists!")};
+        };
+    };
 
     async function deleteTemplate(name) {
-
+        //delete the named template.
         await GM.deleteValue(name);
         alert("Template " + name + " deleted.");
 
-        //reload the div box
+        //reload the div box (update selection list)
         createModalContent();
     };
 
     function removeTags() {
+        //checks through all the added tags and clicks the x link (removes them)
         $("li[class='added tag']").each(function (index, element) {
             $(element).find('a')[0].click();
         });
@@ -324,10 +358,12 @@
 
 
     function Template(name) {
+        //just creating a template object with a name.
         this.name = name;
     };
 
     function colorTheme(elementName) {
+        //checks if div outer wrapper has a color; if it has none/is transparent, take background color from body instead
         return ($("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
     };
 
