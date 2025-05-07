@@ -45,9 +45,8 @@
             name.notesBeginning = $("#work_notes").val();
             name.hasNotesEnd = $("#end-notes-options-show").is(":checked");
             name.notesEnd = $("#work_endnotes").val();
-            //collections can't load properly because of spaces.
-            var collections = $("#associations > dl > dd.collection > ul li.added.tag").text().split(" ×").filter(e => e);
-            name.collections = extractCollections(collections);
+            //collections can't load properly because of spaces, so call a function for it.
+            name.collections = extractCollections($("#associations > dl > dd.collection > ul li.added.tag").text().split(" ×").filter(e => e));
             name.giftTo = $("#associations > dl > dd.recipient > ul li.added.tag").text().split(" ×").filter(e => e);
             name.isInspiredBy = $("#parent-options-show").is(":checked");
             name.inspiredBy = [$("#work_parent_work_relationships_attributes_0_url").val(),
