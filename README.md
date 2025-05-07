@@ -10,5 +10,8 @@ To install, have <a href="https://www.tampermonkey.net">Tampermonkey</a> install
 Then,
 <ol> 
   <li>Select a saved template in the drop-down.</li>
-  <li>Click the 'Load' or 'Delete' button to load or delete it.</li>
-<li>If you wish to save over an existing template, select a saved template in the drop-down and click the 'Save' button.</li></ol>
+  <li>Click the 'Load' or 'Delete' button to load or delete it.</li></ol>
+  
+If you wish to save over an existing template, select a saved template in the drop-down and click the 'Save' button.
+
+
