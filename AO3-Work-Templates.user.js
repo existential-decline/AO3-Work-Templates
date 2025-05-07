@@ -336,7 +336,7 @@
             if (!(templateList.includes(templateName))) {
                 saveTemplate(new Template(templateName));
             } else {
-                alert(templateName + " already exists!")};
+                alert("Template " + templateName + " already exists!")};
         };
     };
 
@@ -364,7 +364,7 @@
 
     function colorTheme(elementName) {
         //checks if div outer wrapper has a color; if it has none/is transparent, take background color from body instead
-        return ($("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
+        return ($("#outer.wrapper").css(elementName) == null || $("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
     };
 
 
