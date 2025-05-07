@@ -3,6 +3,8 @@
 
 <p>To install, have <a href="https://www.tampermonkey.net">Tampermonkey</a> installed in your browser, then go to the <a href="https://github.com/existential-decline/AO3-Work-Templates/raw/refs/heads/main/AO3-Work-Templates.user.js">raw userscript</a> page. This should open an 'install' page that allows you to install the extension.</p>
 
+<p>This has been tested on Chrome/Chromium and Firefox.</p>
+
 <h1>How to Use</h1>
 <ol>
   <li>Complete the <a href="https://archiveofourown.org/works/new">AO3 New Work page</a> with all the information you wish to save to a template.</li>
