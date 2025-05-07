@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AO3 Work Templates
 // @namespace    https://github.com/existential-decline/AO3-Work-Templates/
-// @version      2025-05-07
+// @version      1.0
 // @description  Save, load, and delete templates for AO3 new works.
 // @author       existential-decline@tumblr
 // @match        https://archiveofourown.org/works/new*
