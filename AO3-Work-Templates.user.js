@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AO3 Work Templates
 // @namespace    https://github.com/existential-decline/AO3-Work-Templates/
-// @version      1.0
+// @version      1.0.1
 // @description  Save, load, and delete templates for AO3 new works.
 // @author       existential-decline@tumblr
 // @match        https://archiveofourown.org/works/new*
@@ -45,7 +45,9 @@
             name.notesBeginning = $("#work_notes").val();
             name.hasNotesEnd = $("#end-notes-options-show").is(":checked");
             name.notesEnd = $("#work_endnotes").val();
-            name.collections = $("#associations > dl > dd.collection > ul li.added.tag").text().split(" ×").filter(e => e);
+            //collections can't load properly because of spaces.
+            var collections = $("#associations > dl > dd.collection > ul li.added.tag").text().split(" ×").filter(e => e);
+            name.collections = extractCollections(collections);
             name.giftTo = $("#associations > dl > dd.recipient > ul li.added.tag").text().split(" ×").filter(e => e);
             name.isInspiredBy = $("#parent-options-show").is(":checked");
             name.inspiredBy = [$("#work_parent_work_relationships_attributes_0_url").val(),
@@ -332,7 +334,7 @@
         if (templateName!=null && templateName != "") {
             //check if a template exists.
             var templateList = $("#templateselect option").toArray().map(o => o.value);
-            console.log(templateList);
+            
             if (!(templateList.includes(templateName))) {
                 saveTemplate(new Template(templateName));
             } else {
@@ -365,6 +367,16 @@
     function colorTheme(elementName) {
         //checks if div outer wrapper has a color; if it has none/is transparent, take background color from body instead
         return ($("#outer.wrapper").css(elementName) == null || $("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
+    };
+
+    function extractCollections(list) {
+        //collections don't work without the dropdown autofill select; this fixes that by taking only the unique collection name inside parentheses
+        var collections = [];
+        for (let i = 0; i<list.length; i++) {
+            collections[i] = /(?<=\(([\w]*)\))/.exec(list[i])[1];
+        };
+
+        return collections;
     };
 
 
