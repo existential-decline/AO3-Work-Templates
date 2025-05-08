@@ -228,6 +228,7 @@
         width:250px;
         padding:10px;
         background-color:` + colorTheme("background-color") + `;
+        color:` + colorTheme("color") + `;
         overflow:auto;
         border:2px solid grey;
         z-index:2;
@@ -276,6 +277,7 @@
         position:fixed;
         border:2px solid grey;
         background-color:` + colorTheme("background-color") + `;
+        color:` + colorTheme("color") + `;
         bottom:0;
         right:0;
         padding:10px;
@@ -364,8 +366,15 @@
     };
 
     function colorTheme(elementName) {
+        switch (elementName) {
         //checks if div outer wrapper has a color; if it has none/is transparent, take background color from body instead
-        return ($("#outer.wrapper").css(elementName) == null || $("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName)
+            case "background-color":
+        return ($("#outer.wrapper").css(elementName) == null || $("#outer.wrapper").css(elementName) == "rgba(0, 0, 0, 0)") ? $body.css(elementName):$("#outer.wrapper").css(elementName);
+            case "color":
+            return ($("label").css(elementName));
+            default:
+                return ($body.css(elementName));
+        };
     };
 
     function extractCollections(list) {
