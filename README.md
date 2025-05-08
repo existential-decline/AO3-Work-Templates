@@ -10,7 +10,7 @@
 <ol>
   <li>Complete the <a href="https://archiveofourown.org/works/new">AO3 New Work page</a> with all the information you wish to save to a template.</li>
   <li>Click the 'Templates' button in the lower right corner.</li>
-<li>Press the 'Create New Templates' button and fill in a name for your new template.</li></ol>
+<li>Press the 'Create New Template' button and fill in a name for your new template.</li></ol>
 
 Then,
 <ol> 
