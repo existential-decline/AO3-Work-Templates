@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AO3 Work Templates
 // @namespace    https://github.com/existential-decline/AO3-Work-Templates/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Save, load, and delete templates for AO3 new works.
 // @author       existential-decline@tumblr
 // @match        https://archiveofourown.org/works/new*
@@ -381,9 +381,13 @@
         //collections don't work without the dropdown autofill select; this fixes that by taking only the unique collection name inside parentheses
         var collections = [];
         for (let i = 0; i<list.length; i++) {
-            collections[i] = /(?<=\(([\w]*)\))/.exec(list[i])[1];
+            try {
+                collections[i] = /(?<=\(([\w]*)\))/.exec(list[i])[1];
+            }
+            catch {collections[i] = list[i];}
         };
-
+        console.log(collections);
+        console.log(list);
         return collections;
     };
 
