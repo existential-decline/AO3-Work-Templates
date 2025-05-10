@@ -386,8 +386,6 @@
             }
             catch {collections[i] = list[i];}
         };
-        console.log(collections);
-        console.log(list);
         return collections;
     };
 
